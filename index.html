@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect Power — Applications Open</title>
+<meta name="description" content="Connect Power 5-step youth empowerment programme application portal with online track selection, verification, document upload, and Paystack payment.">
+<meta property="og:title" content="Connect Power — Applications Open">
+<meta property="og:description" content="Connect Power 5-step youth empowerment programme application portal with online track selection, verification, document upload, and Paystack payment.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-deep:#0B3B24;
+    --green:#146B3A;
+    --green-light:#E9F5EC;
+    --gold:#F2B705;
+    --ink:#132018;
+    --muted:#5B6B60;
+    --line:#DCE7DF;
+    font-family:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:#fff;color:var(--ink);line-height:1.5;}
+  h1,h2,h3,.brand{font-family:'Poppins',system-ui,sans-serif;}
+  a{color:inherit;text-decoration:none;}
+
+  /* HEADER */
+  header{
+    padding:24px 5vw;
+    display:flex;flex-wrap:wrap;gap:20px;
+    align-items:center;justify-content:space-between;
+    border-bottom:1px solid var(--line);
+  }
+  .brand-block{display:flex;align-items:center;gap:14px;}
+  .logo{width:46px;height:46px;flex-shrink:0;}
+  .brand-text h1{font-size:1.7rem;font-weight:700;color:var(--green-deep);}
+  .brand-text h1 span{color:var(--green);}
+  .brand-text p{font-size:.9rem;color:var(--muted);margin-top:2px;}
+  .tagline{text-align:right;font-size:.95rem;color:var(--green-deep);font-style:italic;font-family:'Poppins',serif;}
+  .tagline b{color:var(--green);}
+
+  .top-nav{
+    display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:center;
+    background:var(--green-deep);padding:12px 5vw;
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+  }
+  .top-nav a{
+    color:#EAF2EC;font-size:.9rem;font-weight:600;
+    padding:6px 12px;border-radius:6px;transition:all .15s ease;
+  }
+  .top-nav a:hover{background:rgba(255,255,255,.14);}
+  .top-nav a.nav-cta{background:var(--gold);color:var(--green-deep);font-weight:700;}
+  .top-nav a.nav-cta:hover{background:#ffcc33;transform:translateY(-1px);}
+
+  .site-footer{
+    background:var(--green-deep);color:#EAF2EC;margin-top:48px;
+    padding:40px 24px 24px;
+  }
+  .footer-grid{
+    max-width:1000px;margin:0 auto;
+    display:grid;grid-template-columns:1fr;gap:28px;
+  }
+  @media(min-width:720px){ .footer-grid{grid-template-columns:1.2fr 1fr 1fr;} }
+  .footer-grid h3{color:var(--gold);font-size:1rem;margin-bottom:10px;}
+  .footer-grid p, .footer-grid address{font-size:.88rem;color:#CFE3D6;line-height:1.6;font-style:normal;}
+  .footer-grid a{color:#CFE3D6;text-decoration:none;transition:color .15s;}
+  .footer-grid a:hover{color:var(--gold);}
+  .social-icons{display:flex;gap:14px;margin-top:12px;}
+  .social-icons a{
+    width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s, transform .15s;
+  }
+  .social-icons a:hover{background:var(--gold);transform:scale(1.08);}
+  .social-icons svg{width:18px;height:18px;fill:#EAF2EC;}
+  .social-icons a:hover svg{fill:var(--green-deep);}
+  .privacy-box summary{cursor:pointer;color:var(--gold);font-size:.88rem;font-weight:600;margin-top:4px;outline:none;}
+  .privacy-box[open] summary{margin-bottom:8px;}
+  .privacy-box p, .privacy-box li{font-size:.82rem;color:#CFE3D6;line-height:1.55;}
+  .privacy-box ol{padding-left:18px;margin:6px 0;}
+  .privacy-box li{margin-bottom:6px;}
+  .footer-bottom{
+    max-width:1000px;margin:28px auto 0;padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.15);
+    font-size:.78rem;color:#9FB8A8;text-align:center;
+  }
+  @media (max-width:640px){ .tagline{display:none;} }
+
+  /* ACTIVITIES */
+  .activities{padding:40px 5vw 20px;}
+  .activities h2{font-size:1.4rem;color:var(--green-deep);margin-bottom:4px;}
+  .activities .sub{color:var(--muted);font-size:.92rem;margin-bottom:24px;}
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:18px;
+  }
+  .card{
+    background:var(--green-light);
+    border-radius:16px;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    box-shadow:0 4px 12px rgba(11,59,36,0.06);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(11,59,36,0.12);}
+  .card-photo{
+    width:100%;height:140px;object-fit:cover;display:block;
+  }
+  .card-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:var(--green-deep);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;margin:-26px 0 0 16px;
+    border:3px solid var(--green-light);
+    position:relative;
+  }
+  .card-body{padding:14px 16px 20px;flex:1;display:flex;flex-direction:column;}
+  .card-body h3{font-size:1.15rem;color:var(--green-deep);line-height:1.2;margin-bottom:8px;}
+  .card-body h3 span{display:block;color:var(--green);}
+  .card-body p{font-size:.86rem;color:var(--muted);margin-bottom:14px;flex:1;}
+  .learn-more{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.85rem;font-weight:600;color:var(--green-deep);
+  }
+  .learn-more .arrow{
+    width:22px;height:22px;border-radius:50%;background:var(--green-light);
+    border:1.5px solid var(--green);
+    display:flex;align-items:center;justify-content:center;font-size:.8rem;
+    transition:transform .15s ease;
+  }
+  .learn-more:hover .arrow{transform:translateX(3px);}
+
+  /* REGISTRATION */
+  .registration{
+    margin:48px 5vw 20px;
+    background:var(--green-deep);
+    border-radius:20px;
+    color:#fff;
+    padding:32px 5vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+    box-shadow:0 12px 36px rgba(11,59,36,0.2);
+  }
+  @media (max-width:800px){ .registration{grid-template-columns:1fr;} }
+  .registration h2{font-size:1.3rem;margin-bottom:4px;}
+  .registration .sub{color:#B9CEC0;font-size:.88rem;margin-bottom:20px;}
+  .steps{list-style:none;}
+  .steps li{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .steps li:last-child{border-bottom:none;}
+  .step-num{
+    width:30px;height:30px;border-radius:50%;flex-shrink:0;
+    background:rgba(242,183,5,.18);color:var(--gold);
+    font-size:.8rem;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .step-text b{display:block;font-size:.95rem;}
+  .step-text span{font-size:.8rem;color:#B9CEC0;}
+
+  .reg-form{display:flex;flex-direction:column;justify-content:center;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:.8rem;color:#B9CEC0;margin-bottom:6px;}
+  .field input{
+    width:100%;padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);color:#fff;font-size:.92rem;font-family:inherit;
+  }
+  .field input::placeholder{color:#7E9384;}
+  .field input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .create-btn{
+    width:100%;margin-top:6px;background:var(--gold);color:var(--green-deep);
+    padding:14px;border-radius:8px;border:none;font-weight:700;font-size:.95rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .create-btn:hover:not(:disabled){background:#ffcc33;transform:translateY(-1px);}
+  .create-btn:disabled{opacity:0.6;cursor:not-allowed;}
+
+  /* FOOTER BADGES */
+  .badges{
+    display:flex;flex-wrap:wrap;gap:24px;justify-content:center;
+    padding:28px 5vw 48px;
+    font-size:.88rem;color:var(--green-deep);font-weight:500;
+  }
+  .badges span{display:flex;align-items:center;gap:8px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);}
+  .error-msg{color:#ff8080;font-size:.82rem;margin:4px 0 0;min-height:1em;}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="#top">Home</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="#reg-section" id="nav-signup">Sign Up</a>
+  <a href="#reg-section" id="nav-signin" class="nav-cta">Sign In</a>
+  <a href="admin-login.html" style="opacity:.85;">🔒 Admin Portal</a>
+</nav>
+
+<header id="top">
+  <div class="brand-block">
+    <svg class="logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="10" r="5" fill="#F2B705"/>
+      <path d="M24 16C24 16 10 20 10 34C10 34 24 34 24 20C24 34 38 34 38 34C38 20 24 16 24 16Z" fill="#146B3A"/>
+    </svg>
+    <div class="brand-text">
+      <h1>Connect <span>Power</span></h1>
+      <p>Applications Now Open for the Next Batch!</p>
+    </div>
+  </div>
+  <div class="tagline"><b>Learn</b> &bull; <b>Build</b> &bull; <b>Grow</b><br>Across Every Sector</div>
+</header>
+
+<section class="activities">
+  <h2>Choose your track</h2>
+  <p class="sub">Pick a programme to see what it covers.</p>
+  <div class="card-grid">
+
+    <div class="card">
+      <img class="card-photo" src="https://images.unsplash.com/photo-1473649085228-583485e6e4d7?fm=jpg&q=80&w=1200&auto=format&fit=crop" alt="Nigerian classroom in Lagos, Nigeria" loading="lazy">
+      <div class="card-icon">📖</div>
+      <div class="card-body">
+        <h3>Teach<span>Connect</span></h3>
+        <p>Share knowledge. Build future leaders. Teach and make an impact.</p>
+        <a href="#reg-section" class="learn-more">Learn More <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-photo" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Tech professionals collaborating on computers" loading="lazy">
+      <div class="card-icon">💻</div>
+      <div class="card-body">
+        <h3>Tech<span>Connect</span></h3>
+        <p>Build digital solutions. Learn in-demand tech skills. Create what's next.</p>
+        <a href="#reg-section" class="learn-more">Learn More <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-photo" src="https://images.pexels.com/photos/14314165/pexels-photo-14314165.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Farmers working together in a rice field in Makurdi, Nigeria" loading="lazy">
+      <div class="card-icon">🌱</div>
+      <div class="card-body">
+        <h3>Agro<span>Connect</span></h3>
+        <p>Support farmers. Promote smart agriculture. Grow food security.</p>
+        <a href="#reg-section" class="learn-more">Learn More <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-photo" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80" alt="Construction engineers examining architectural plans" loading="lazy">
+      <div class="card-icon">🏗️</div>
+      <div class="card-body">
+        <h3>Build<span>Connect</span></h3>
+        <p>Support builders. Improve infrastructure. Build stronger communities.</p>
+        <a href="#reg-section" class="learn-more">Learn More <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-photo" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" alt="Healthcare medical professionals assisting patient" loading="lazy">
+      <div class="card-icon">🩺</div>
+      <div class="card-body">
+        <h3>Health<span>Connect</span></h3>
+        <p>Support wellbeing. Build confidence. Create healthier, stronger communities.</p>
+        <a href="#reg-section" class="learn-more">Learn More <span class="arrow">→</span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="registration" id="reg-section">
+  <div class="steps-block">
+    <h2>Registration section</h2>
+    <p class="sub">Four steps to get enrolled</p>
+    <ul class="steps">
+      <li><span class="step-num">1</span><div class="step-text"><b>Account creation</b><span>Set up your login details</span></div></li>
+      <li><span class="step-num">2</span><div class="step-text"><b>Selection of programme</b><span>Choose the track that fits you</span></div></li>
+      <li><span class="step-num">3</span><div class="step-text"><b>Submission of documents</b><span>Upload what's required for review</span></div></li>
+      <li><span class="step-num">4</span><div class="step-text"><b>Test & verification</b><span>Confirm your details and assessment</span></div></li>
+    </ul>
+  </div>
+  <form class="reg-form" id="reg-form" onsubmit="return handleRegisterSubmit(event);">
+    <div class="field">
+      <label for="email">Email Address</label>
+      <input id="email" type="email" placeholder="you@example.com" required>
+    </div>
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input id="phone" type="tel" inputmode="numeric" maxlength="11" placeholder="08000000000" required>
+      <p id="phone-error" class="error-msg"></p>
+    </div>
+    <div class="field">
+      <label for="password">Create Password</label>
+      <input id="password" type="password" placeholder="At least 8 characters" required minlength="8">
+    </div>
+    <button type="submit" id="reg-submit-btn" class="create-btn">CREATE ACCOUNT →</button>
+    <p id="reg-status" class="error-msg"></p>
+    <p style="color:#B9CEC0;font-size:0.85rem;margin-top:10px;text-align:center;">
+      Already have an account? <a href="#" id="show-login-link" style="color:var(--gold);font-weight:600;text-decoration:underline;">Log in</a>
+    </p>
+  </form>
+
+  <form class="reg-form" id="login-form" style="display:none;" onsubmit="return handleLoginSubmit(event);">
+    <div class="field">
+      <label for="login-email">Email Address</label>
+      <input id="login-email" type="email" placeholder="you@example.com" required>
+    </div>
+    <div class="field">
+      <label for="login-password">Password</label>
+      <input id="login-password" type="password" placeholder="Your password" required>
+    </div>
+    <button type="submit" id="login-submit-btn" class="create-btn">LOG IN →</button>
+    <p id="login-status" class="error-msg"></p>
+    <p style="color:#B9CEC0;font-size:0.85rem;margin-top:10px;text-align:center;">
+      New here? <a href="#" id="show-register-link" style="color:var(--gold);font-weight:600;text-decoration:underline;">Create an account</a>
+    </p>
+  </form>
+
+  <script>
+    function handleRegisterSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value;
+      const errorBox = document.getElementById('phone-error');
+      const regStatus = document.getElementById('reg-status');
+      const regBtn = document.getElementById('reg-submit-btn');
+
+      if (!/^\d{11}$/.test(phone)) {
+        errorBox.textContent = 'Phone number must be exactly 11 digits.';
+        return false;
+      }
+      errorBox.textContent = '';
+      regStatus.style.color = '#B9CEC0';
+      regStatus.textContent = 'Creating account...';
+      regBtn.disabled = true;
+
+      fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, phone, password })
+      })
+        .then(res => res.json())
+        .then(data => {
+          regBtn.disabled = false;
+          if (data.success) {
+            localStorage.setItem('cp_reg_email', email);
+            localStorage.setItem('cp_reg_phone', phone);
+            window.location.href = 'step1.html';
+          } else {
+            regStatus.style.color = '#ff8080';
+            regStatus.textContent = data.message || 'Could not create account. Please try again.';
+          }
+        })
+        .catch(() => {
+          regBtn.disabled = false;
+          regStatus.style.color = '#ff8080';
+          regStatus.textContent = 'Could not reach the server. Please try again.';
+        });
+
+      return false;
+    }
+
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const loginStatus = document.getElementById('login-status');
+      const loginBtn = document.getElementById('login-submit-btn');
+
+      loginStatus.style.color = '#ff8080';
+      loginStatus.textContent = '';
+      loginBtn.disabled = true;
+
+      fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+        .then(res => res.json())
+        .then(data => {
+          loginBtn.disabled = false;
+          if (data.success) {
+            localStorage.setItem('cp_reg_email', data.email);
+            localStorage.setItem('cp_reg_phone', data.phone || '');
+            window.location.href = 'step1.html';
+          } else {
+            loginStatus.textContent = data.message || 'Incorrect email or password.';
+          }
+        })
+        .catch(() => {
+          loginBtn.disabled = false;
+          loginStatus.textContent = 'Could not reach the server. Please try again.';
+        });
+
+      return false;
+    }
+
+    document.getElementById('show-login-link').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('reg-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'flex';
+    });
+    document.getElementById('show-register-link').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('reg-form').style.display = 'flex';
+    });
+
+    document.getElementById('nav-signin').addEventListener('click', function () {
+      document.getElementById('reg-form').style.display = 'none';
+      document.getElementById('login-form').style.display = 'flex';
+    });
+    document.getElementById('nav-signup').addEventListener('click', function () {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('reg-form').style.display = 'flex';
+    });
+  </script>
+</section>
+
+<div class="badges">
+  <span><span class="dot"></span>Transparent</span>
+  <span><span class="dot"></span>Inclusive</span>
+  <span><span class="dot"></span>Skill Development</span>
+  <span><span class="dot"></span>Better Tomorrow</span>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+
+    <div>
+      <h3>Location</h3>
+      <address>
+        No. 4 Abidjan Street, Wuse Zone 3,<br>
+        Abuja, Federal Capital Territory, Nigeria.
+      </address>
+
+      <h3 id="about" style="margin-top:20px;">Our Mission</h3>
+      <p>
+        At Connect Power, our mission is to empower individuals and organizations to achieve their full potential by connecting talent with opportunity.
+        We believe every person in Nigeria and Africa deserves meaningful work, and every employer deserves exceptional talent.
+        We are dedicated to delivering quality connections and strive for excellence in matching talent to the right opportunities,
+        resulting in long-lasting, fulfilling employment relationships.
+      </p>
+    </div>
+
+    <div>
+      <h3>Privacy Policy</h3>
+      <details class="privacy-box">
+        <summary>Read our full Privacy Policy</summary>
+        <p>
+          This Privacy Policy describes how the Connect Power (CP) Recruitment Portal collects, uses, stores, and protects
+          your personal information in accordance with the Nigeria Data Protection Regulation (NDPR).
+        </p>
+        <ol>
+          <li><b>Data Collection</b> — We collect personal data such as name, contact details, date of birth, educational background, and other information required for recruitment purposes.</li>
+          <li><b>Purpose of Processing</b> — Your data is processed solely for the purpose of recruitment, verification, and communication regarding your application.</li>
+          <li><b>Data Sharing</b> — Your information may be shared with authorized government agencies as required by law. We do not sell or rent your personal data to third parties.</li>
+          <li><b>Data Security</b> — We implement appropriate technical and organizational measures to protect your data against unauthorized access, loss, or misuse.</li>
+          <li><b>Data Retention</b> — Your data will be retained only as long as necessary for recruitment and legal purposes.</li>
+          <li><b>Your Rights</b> — You have the right to access, rectify, or request deletion of your personal data, and to withdraw consent at any time, subject to legal requirements.</li>
+          <li><b>Contact</b> — For privacy-related inquiries, contact <a href="mailto:connectsupport@gmail.com">connectsupport@gmail.com</a>.</li>
+        </ol>
+        <p>By using this portal, you consent to the collection and use of your information as described in this policy.</p>
+      </details>
+    </div>
+
+    <div>
+      <h3 id="contact">Contact</h3>
+      <p>
+        No. 4 Abidjan Street, Wuse Zone 3,<br>
+        Abuja, FCT, Nigeria.<br><br>
+        <a href="mailto:connectsupport@gmail.com">connectsupport@gmail.com</a>
+      </p>
+
+      <h3 style="margin-top:20px;">Follow Us</h3>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M23 4.9c-.8.4-1.7.6-2.6.8 1-.6 1.7-1.5 2-2.6-.9.5-1.9.9-3 1.1-.9-.9-2.1-1.5-3.5-1.5-2.6 0-4.8 2.1-4.8 4.8 0 .4 0 .7.1 1.1-4-.2-7.6-2.1-10-5-.4.7-.6 1.5-.6 2.4 0 1.6.8 3.1 2.1 3.9-.8 0-1.5-.2-2.1-.6v.1c0 2.3 1.6 4.2 3.8 4.6-.4.1-.8.2-1.2.2-.3 0-.6 0-.8-.1.6 1.9 2.3 3.2 4.3 3.3-1.6 1.2-3.6 2-5.7 2-.4 0-.7 0-1.1-.1C2 21.3 4.5 22 7.1 22c8.5 0 13.1-7 13.1-13.1v-.6c.9-.6 1.7-1.5 2.3-2.4-.8.4-1.7.6-2.6.8z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .2 2.4.4.6.2 1 .5 1.5 1 .4.4.7.8 1 1.5.2.4.3 1.2.4 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 2-.4 2.4-.2.6-.5 1-1 1.5-.4.4-.8.7-1.5 1-.4.2-1.2.3-2.4.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.2-2.4-.4-.6-.2-1-.5-1.5-1-.4-.4-.7-.8-1-1.5-.2-.4-.3-1.2-.4-2.4-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-2 .4-2.4.2-.6.5-1 1-1.5.4-.4.8-.7 1.5-1 .4-.2 1.2-.3 2.4-.4C8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7 .1 5.7.1 4.8.3 4 .6c-.9.3-1.6.8-2.3 1.5C1 2.8.5 3.5.2 4.4-.1 5.2-.3 6.1-.3 7.4-.4 8.7-.4 9.1-.4 12.4s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.9.8 1.6 1.5 2.3.7.7 1.4 1.2 2.3 1.5.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.9-.3 1.6-.8 2.3-1.5.7-.7 1.2-1.4 1.5-2.3.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.9-.8-1.6-1.5-2.3C21.2 1 20.5.5 19.6.2 18.8-.1 17.9-.3 16.6-.4 15.3-.4 14.9-.4 12-.4z"/><path d="M12 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.4" cy="5.6" r="1.4"/></svg>
+        </a>
+        <a href="#" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.1 1.6 5.9L0 24l6.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S18.6 0 12 0zm0 21.8c-1.9 0-3.7-.5-5.2-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.5 15.7 2 13.9 2 12 2 6.5 6.5 2 12 2s10 4.5 10 10-4.5 9.8-10 9.8zm5.5-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10.1 9.3 9.6 8 9.4 7.5c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.6-.4z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © <span id="footer-year"></span> Connect Power — Youth Empowerment Programme. All rights reserved.
+  </div>
+  <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+</footer>
+
+</body>
+</html>

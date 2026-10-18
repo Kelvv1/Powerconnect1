@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect Power — Step 5: Submit Application</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+  :root{
+    --green-deep:#0B3B24;
+    --green:#146B3A;
+    --green-light:#E9F5EC;
+    --gold:#F2B705;
+    --ink:#132018;
+    --muted:#5B6B60;
+    --line:#DCE7DF;
+    font-family:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--green-light);
+    color:var(--ink);line-height:1.5;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:28px 5vw;
+  }
+  h1,h2,.step-title{font-family:'Poppins',system-ui,sans-serif;}
+
+  .step-card{
+    width:100%;max-width:480px;
+    background:linear-gradient(160deg,var(--green-deep),var(--green));
+    border-radius:22px;
+    padding:6px;
+    box-shadow:0 12px 30px rgba(11,59,36,0.18);
+  }
+  .step-title{
+    padding:20px 26px;
+    font-size:1.3rem;font-weight:700;color:#fff;
+  }
+  .step-title span{color:var(--gold);}
+
+  .inner{background:#fff;border-radius:18px;padding:30px 26px;text-align:center;}
+
+  .summary{
+    background:var(--green-light);
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+    text-align:left;
+  }
+  .summary-row{
+    display:flex;justify-content:space-between;font-size:.88rem;
+    padding:6px 0;color:var(--muted);
+  }
+  .summary-row b{color:var(--ink);font-weight:600;}
+
+  .field{text-align:left;margin-bottom:18px;}
+  .field label{display:block;font-size:.8rem;font-weight:600;color:var(--green-deep);margin-bottom:6px;}
+  .field input{
+    width:100%;padding:12px 14px;border-radius:9px;border:1.5px solid var(--green);
+    font-size:.92rem;font-family:inherit;color:var(--ink);
+  }
+  .field input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+
+  .submit-btn{
+    width:100%;background:var(--gold);color:var(--green-deep);
+    padding:15px;border-radius:10px;border:none;
+    font-weight:700;font-size:1rem;cursor:pointer;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .submit-btn:hover:not(:disabled){background:#ffcc33;transform:translateY(-1px);}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  .status-msg{font-size:.85rem;margin-top:14px;min-height:1.2em;}
+  .status-msg.error{color:#B3261E;}
+  .status-msg.info{color:var(--muted);}
+
+  .back-link{
+    display:block;margin-top:16px;font-size:.85rem;color:var(--muted);text-decoration:none;
+  }
+  .back-link:hover{color:var(--green-deep);text-decoration:underline;}
+
+  .success{display:none;}
+  .success .check{
+    width:60px;height:60px;border-radius:50%;
+    background:var(--green);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 16px;font-size:1.8rem;
+  }
+  .success h2{color:var(--green-deep);margin-bottom:6px;}
+  .success .ref{font-weight:700;color:var(--green-deep);margin-bottom:18px;}
+  .receipt{
+    background:var(--green-light);border-radius:12px;padding:16px 18px;
+    margin:14px 0;text-align:left;
+  }
+  .receipt .summary-row{padding:6px 0;border-bottom:1px solid rgba(11,59,36,.08);}
+  .receipt .summary-row:last-child{border-bottom:none;}
+  @media print{
+    body *{visibility:hidden;}
+    #receipt-box, #receipt-box *, #receipt-box-pending, #receipt-box-pending *{visibility:visible;}
+    #receipt-box, #receipt-box-pending{position:absolute;top:0;left:0;width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="step-card">
+  <div class="step-title"><span>STEP 5:</span> Submit Application</div>
+  <div class="inner">
+
+    <div id="submit-view">
+      <div class="summary">
+        <div class="summary-row"><span>Track</span><b id="sum-track">—</b></div>
+        <div class="summary-row"><span>Reference</span><b id="sum-ref">—</b></div>
+        <div class="summary-row"><span>Application Fee</span><b>₦1,015</b></div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" type="email" placeholder="you@example.com" required>
+      </div>
+
+      <button id="submit-btn" class="submit-btn">Pay ₦1,015 &amp; Submit →</button>
+      <p id="status-msg" class="status-msg"></p>
+    </div>
+
+    <div class="success" id="success-view">
+      <div class="check">✓</div>
+      <h2>Application submitted successfully!</h2>
+      <div class="receipt" id="receipt-box">
+        <div class="summary-row"><span>Track</span><b id="r-track">—</b></div>
+        <div class="summary-row"><span>Reference</span><b id="r-ref">—</b></div>
+        <div class="summary-row"><span>Email</span><b id="r-email">—</b></div>
+        <div class="summary-row"><span>Amount Paid</span><b>₦1,015</b></div>
+        <div class="summary-row"><span>Date</span><b id="r-date">—</b></div>
+      </div>
+      <p style="color:var(--muted);font-size:.85rem;">You'll be contacted via the email you provided.</p>
+      <button class="submit-btn" style="margin-top:14px;" onclick="window.print()">🖨 Print Payment Slip</button>
+      <a href="index.html" class="back-link" style="margin-top:16px;">← Return to Home</a>
+    </div>
+
+    <div class="success" id="pending-view" style="display:none;">
+      <div class="check" style="background:var(--gold);">!</div>
+      <h2>Payment received — confirming with our system</h2>
+      <div class="receipt" id="receipt-box-pending">
+        <div class="summary-row"><span>Track</span><b id="p-track">—</b></div>
+        <div class="summary-row"><span>Reference</span><b id="p-ref">—</b></div>
+        <div class="summary-row"><span>Email</span><b id="p-email">—</b></div>
+        <div class="summary-row"><span>Amount Paid</span><b>₦1,015</b></div>
+        <div class="summary-row"><span>Date</span><b id="p-date">—</b></div>
+      </div>
+      <p style="color:var(--muted);font-size:.85rem;">
+        Your payment went through with Paystack, but we could not reach our server to finalize your application automatically.
+        Please print or screenshot this slip as proof of payment and contact support with your reference number.
+      </p>
+      <button class="submit-btn" style="margin-top:14px;" onclick="window.print()">🖨 Print Payment Slip</button>
+      <a href="index.html" class="back-link" style="margin-top:16px;">← Return to Home</a>
+    </div>
+
+    <a href="step4.html" class="back-link">← Back to Step 4</a>
+  </div>
+</div>
+
+<script>
+  const trackNameMap = {
+    tech: 'Tech Connect',
+    agro: 'Agro Connect',
+    health: 'Health Connect',
+    build: 'Build Connect',
+    teach: 'Teach Connect'
+  };
+
+  const ref = localStorage.getItem('cp_ref') || ('NP-2017-' + Math.floor(1000000 + Math.random()*8999999));
+  const savedEmail = localStorage.getItem('cp_email') || localStorage.getItem('cp_reg_email') || '';
+  const rawTrack = localStorage.getItem('cp_track') || 'tech';
+  const savedTrack = localStorage.getItem('cp_track_name') || trackNameMap[rawTrack] || rawTrack || 'Tech Connect';
+
+  document.getElementById('sum-ref').textContent = ref;
+  document.getElementById('sum-track').textContent = savedTrack;
+  document.getElementById('email').value = savedEmail;
+
+  const submitBtn = document.getElementById('submit-btn');
+  const statusMsg = document.getElementById('status-msg');
+
+  let PAYSTACK_PUBLIC_KEY = '';
+  // Load public key dynamically from server configuration
+  fetch('/api/config')
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.paystackPublicKey) {
+        PAYSTACK_PUBLIC_KEY = data.paystackPublicKey;
+      }
+    })
+    .catch(() => {
+      PAYSTACK_PUBLIC_KEY = atob('cGtfbGl2ZV82OGU5OTI3OWNhMzE5YTY1MDRhMjU1NWZkMjU1NWFlMWU1MjVlYmFi');
+    });
+
+  const APPLICATION_FEE_KOBO = 101500; // ₦1,015.00
+  let paymentCallbackFired = false;
+
+  function showReceipt(viewId, prefix, email) {
+    document.getElementById(prefix + '-track').textContent = savedTrack;
+    document.getElementById(prefix + '-ref').textContent = ref;
+    document.getElementById(prefix + '-email').textContent = email;
+    document.getElementById(prefix + '-date').textContent = new Date().toLocaleString();
+    document.getElementById('submit-view').style.display = 'none';
+    document.getElementById(viewId).style.display = 'block';
+  }
+
+  function submitApplication(email, paystackReference) {
+    statusMsg.textContent = 'Submitting application...';
+    statusMsg.className = 'status-msg info';
+
+    fetch('/api/submit-application', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        reference: ref,
+        email: email,
+        paystackReference: paystackReference,
+        applicant: {
+          fullname: localStorage.getItem('cp_fullname') || '',
+          nin: localStorage.getItem('cp_nin') || '',
+          track: savedTrack
+        }
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          showReceipt('success-view', 'r', email);
+        } else {
+          // Payment was verified but saving the application failed for some other reason —
+          // still give them proof of payment rather than leaving them stuck.
+          showReceipt('pending-view', 'p', email);
+        }
+      })
+      .catch(() => {
+        // Could not reach our server at all — payment with Paystack already succeeded,
+        // so give a receipt instead of blocking the paying applicant.
+        showReceipt('pending-view', 'p', email);
+      });
+  }
+
+  submitBtn.addEventListener('click', function () {
+    const email = document.getElementById('email').value.trim();
+    if (!email || !email.includes('@')) {
+      statusMsg.textContent = 'Please enter a valid email address.';
+      statusMsg.className = 'status-msg error';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    statusMsg.textContent = 'Opening payment window...';
+    statusMsg.className = 'status-msg info';
+    paymentCallbackFired = false;
+
+    // Check if Paystack library loaded
+    if (typeof PaystackPop === 'undefined') {
+      // In case offline or script blocked, provide graceful message or fallback
+      statusMsg.textContent = 'Paystack payment system loading... Please check your internet connection.';
+      statusMsg.className = 'status-msg error';
+      submitBtn.disabled = false;
+      return;
+    }
+
+    try {
+      const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: email,
+        amount: APPLICATION_FEE_KOBO,
+        currency: 'NGN',
+        ref: ref,
+        callback: function (response) {
+          paymentCallbackFired = true; // payment genuinely succeeded — onClose must not override this
+          statusMsg.textContent = 'Verifying payment...';
+          statusMsg.className = 'status-msg info';
+
+          fetch('/api/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reference: response.reference })
+          })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                submitApplication(email, response.reference);
+              } else {
+                // Our server reached Paystack and Paystack said this reference is NOT a success —
+                // this is a genuine failure, not a connectivity issue.
+                statusMsg.textContent = data.message || 'Payment could not be verified.';
+                statusMsg.className = 'status-msg error';
+                submitBtn.disabled = false;
+              }
+            })
+            .catch(() => {
+              // Could not reach our own server to double-check — but Paystack itself already
+              // confirmed the charge via the callback, so don't tell the applicant it failed.
+              showReceipt('pending-view', 'p', email);
+            });
+        },
+        onClose: function () {
+          if (paymentCallbackFired) return; // a real payment already succeeded — ignore this
+          statusMsg.textContent = 'Payment window closed. No charge was made.';
+          statusMsg.className = 'status-msg error';
+          submitBtn.disabled = false;
+        }
+      });
+      handler.openIframe();
+    } catch (err) {
+      console.error('Paystack error:', err);
+      statusMsg.textContent = 'Unable to launch Paystack window. Please retry.';
+      statusMsg.className = 'status-msg error';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

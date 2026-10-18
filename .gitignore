@@ -1,0 +1,23 @@
+# Never push real secrets to GitHub
+.env
+.env*
+!.env.example
+
+# Backup / reference doc
+project-reference.md
+
+# Auto-created data files
+applications.json
+users.json
+uploads-index.json
+uploads/
+
+# Node dependencies & builds
+node_modules/
+dist/
+build/
+
+# Common OS/editor clutter
+.DS_Store
+.vscode/
+*.log

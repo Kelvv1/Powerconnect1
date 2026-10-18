@@ -1,0 +1,6 @@
+{
+  "name": "Connect Power - Youth Empowerment Programme",
+  "description": "Connect Power 5-step youth empowerment programme application portal with online track selection, verification, document upload, and Paystack payment.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
